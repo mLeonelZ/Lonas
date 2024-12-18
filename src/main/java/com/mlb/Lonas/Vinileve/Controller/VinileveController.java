@@ -1,4 +1,5 @@
 package com.mlb.Lonas.Vinileve.Controller;
 
-public class VinileveController {
+public class VinileveController
+{
 }
