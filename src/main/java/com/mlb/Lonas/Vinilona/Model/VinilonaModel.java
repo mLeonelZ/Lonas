@@ -21,5 +21,4 @@ public class VinilonaModel {
     private Double largura;
     private Integer pedido;
 
-
 }
