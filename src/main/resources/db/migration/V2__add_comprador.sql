@@ -1,0 +1,1 @@
+ALTER TABLE tb_vinilona ADD COLUMN comprador VARCHAR(255);
