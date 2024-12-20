@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data // Getters e Setters
 
+
+// DEPOIS DE FEITO A TABELA NO BD ******* NUNCA MAIS MEXER NAS COLUNAS ************
+//
 public class VinilonaModel {
 
     @Id
