@@ -1,0 +1,1 @@
+ALTER TABLE tb_vinilona DROP COLUMN comprador;
