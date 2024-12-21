@@ -21,16 +21,20 @@ public class VinilonaService {
         this.vinilonaRepository = vinilonaRepository;
     }
 
-    // Listar todas as lonas
+    // 1 Listar todas as lonas
     public List<VinilonaModel> listar(){
          return vinilonaRepository.findAll();
     }
 
-    // Listar por Comprimento e Largura
+    // 2 Listar por Comprimento e Largura
     public List<VinilonaModel> listarCompLarg(double comprimento, double largura){
         return vinilonaRepository.findByComprimentoAndLargura(comprimento,largura);
     }
 
+    // 3 Adicionar uma nova lona
+    public VinilonaModel criar(VinilonaModel lona){
+        return vinilonaRepository.save(lona);
+    }
 
 
 }

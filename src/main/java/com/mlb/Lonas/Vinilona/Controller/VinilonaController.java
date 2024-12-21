@@ -23,8 +23,9 @@ public class VinilonaController {
 
     // Adicionar Lona
     @PostMapping("/criar")
-    public String criar(){
-        return "lona criada";
+    public VinilonaModel criar(@RequestBody VinilonaModel vinilonaModel){
+        System.out.println("\n LONA CRIADA COM SUCESSO! \n");
+        return vinilonaService.criar(vinilonaModel);
     }
 
 
