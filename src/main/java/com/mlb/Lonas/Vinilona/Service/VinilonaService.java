@@ -1,11 +1,14 @@
 package com.mlb.Lonas.Vinilona.Service;
 
+import com.mlb.Lonas.Vinilona.DTO.VinilonaDTO;
+import com.mlb.Lonas.Vinilona.Mapper.VinilonaMapper;
 import com.mlb.Lonas.Vinilona.Model.VinilonaModel;
 import com.mlb.Lonas.Vinilona.Repository.VinilonaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class VinilonaService {
@@ -14,24 +17,34 @@ public class VinilonaService {
     // Permite que o Service tenha acesso ao Banco de dados
     // inicializando uma nova instância
     private final VinilonaRepository vinilonaRepository;
+    private VinilonaMapper vinilonaMapper;
 
-    public VinilonaService(VinilonaRepository vinilonaRepository) {
+    public VinilonaService(VinilonaRepository vinilonaRepository, VinilonaMapper vinilonaMapper) {
         this.vinilonaRepository = vinilonaRepository;
+        this.vinilonaMapper = vinilonaMapper;
     }
 
     // 1 Listar todas as lonas
-    public List<VinilonaModel> listar(){
-         return vinilonaRepository.findAll();
+    public List<VinilonaDTO> listar(){
+         List<VinilonaModel> lonas = vinilonaRepository.findAll();
+
+         return lonas.stream()
+                 .map(vinilonaMapper::map)
+                 .collect(Collectors.toList());
+
     }
 
     // 2 Listar por Comprimento e Largura
-    public List<VinilonaModel> listarCompLarg(double comprimento, double largura){
-        return vinilonaRepository.findByComprimentoAndLargura(comprimento,largura);
+    public List<VinilonaDTO> listarCompLarg(double comprimento, double largura){
+        List<VinilonaModel> lonas = vinilonaRepository.findByComprimentoAndLargura(comprimento,largura);
+        return lonas.stream().map(vinilonaMapper::map).collect(Collectors.toList());
     }
 
     // 3 Adicionar uma nova lona
-    public VinilonaModel criar(VinilonaModel lona){
-        return vinilonaRepository.save(lona);
+    public VinilonaDTO criar(VinilonaDTO lonaDTO){
+        VinilonaModel lona = vinilonaMapper.map(lonaDTO);
+        lona = vinilonaRepository.save(lona);
+        return vinilonaMapper.map(lona);
     }
 
     // 4 Remover uma lona // TEM QUE SER VOID pois nao necessita de um retorno
@@ -41,10 +54,13 @@ public class VinilonaService {
     }
 
     // 5 Alterar uma lona
-    public VinilonaModel alterar(Long id, VinilonaModel lonaAtualizada){
-        if(vinilonaRepository.existsById(id)){
+    public VinilonaDTO alterar(Long id, VinilonaDTO vinilonaDTO){
+        Optional<VinilonaModel> lonaExistente = vinilonaRepository.findById(id);
+        if (lonaExistente.isPresent()) {
+            VinilonaModel lonaAtualizada = vinilonaMapper.map(vinilonaDTO);
             lonaAtualizada.setId(id);
-            return vinilonaRepository.save(lonaAtualizada);
+            VinilonaModel lonaSalva = vinilonaRepository.save(lonaAtualizada);
+            return vinilonaMapper.map(lonaSalva);
         }
         return null;
     }
