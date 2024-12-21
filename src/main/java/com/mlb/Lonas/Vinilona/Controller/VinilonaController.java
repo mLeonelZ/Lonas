@@ -50,9 +50,9 @@ public class VinilonaController {
     }
 
     // deletar lona
-    @DeleteMapping("/deletarID")
-    public String deletar(){
-        return "lona deletada";
+    @DeleteMapping("/deletar/{id}")
+    public void deletar(@PathVariable Long id){
+        vinilonaService.deletar(id);
     }
 
 
