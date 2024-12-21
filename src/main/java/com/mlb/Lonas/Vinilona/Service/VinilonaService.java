@@ -40,4 +40,13 @@ public class VinilonaService {
         vinilonaRepository.deleteById(id);
     }
 
+    // 5 Alterar uma lona
+    public VinilonaModel alterar(Long id, VinilonaModel lonaAtualizada){
+        if(vinilonaRepository.existsById(id)){
+            lonaAtualizada.setId(id);
+            return vinilonaRepository.save(lonaAtualizada);
+        }
+        return null;
+    }
+
 }

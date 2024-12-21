@@ -44,9 +44,9 @@ public class VinilonaController {
 
 
     // Alterar lona por id
-    @PutMapping("/alterarID")
-    public String alterar(){
-        return "lona alterada";
+    @PutMapping("/alterar/{id}")
+    public VinilonaModel alterar(@PathVariable Long id, @RequestBody VinilonaModel lonaAtualizada){
+        return vinilonaService.alterar(id, lonaAtualizada);
     }
 
     // deletar lona
