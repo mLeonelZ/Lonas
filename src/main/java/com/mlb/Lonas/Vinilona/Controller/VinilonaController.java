@@ -36,9 +36,9 @@ public class VinilonaController {
 
 
     // Listar lonas por comprimento x largura
-    @GetMapping("/listarComp")
-    public String listarCompLarg(){
-        return "lona criada";
+    @GetMapping("/listar/{comprimento}/{largura}")
+    public List<VinilonaModel> listarCompLarg(@PathVariable double comprimento,@PathVariable double largura){
+        return vinilonaService.listarCompLarg(comprimento,largura);
     }
 
 
