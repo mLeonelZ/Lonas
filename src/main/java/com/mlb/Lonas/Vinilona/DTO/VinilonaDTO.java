@@ -15,4 +15,12 @@ public class VinilonaDTO {
     private Double largura;
     private Integer pedido;
 
+    @Override
+    public String toString() {
+        return "id : " + id +
+                ", \ncor : " + cor +
+                ", \ncomprimento : " + String.format("%.2f", comprimento) +
+                ", \nlargura : " + String.format("%.2f", largura) +
+                ", \npedido : " + pedido;
+    }
 }
